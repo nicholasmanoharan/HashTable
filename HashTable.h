@@ -1,21 +1,32 @@
 #ifndef HASHTABLE_H
 #define HASHTABLE_H
-#include <vector> 
-#include "Student.h"
+#include <iostream>
+#include <list>
+#include <string>
 
-class HashTable { 
-    private: 
-        static const int INTIAL_SIZE = 10; 
-        std::vector<std::vector<Student*>> table; 
-        int size; 
-        int hashFunction(int id); 
-        void resizeTable(); 
+class HashTable {
+private:
+    //using a struct as a representation for a student
+    struct Student {
+        std::string firstName;
+        std::string lastName;
+        double GPA;
+    };
 
-    public: 
-        HashTable();
-        ~HashTable(); 
-        void addStudent(Student* student); 
-        void printStudents() const; 
+    int tableSize;
+    std::list<Student>* table;
+
+    int hashFunction(const std::string& key) const;
+    
+public:
+    //Setting up constructor and deconstructor
+    HashTable(int size);
+    ~HashTable();
+    
+    //Setting up the functions
+    void addStudent(const std::string& firstName, const std::string& lastName, double GPA);
+    bool deleteStudent(const std::string& firstName, const std::string& lastName);
+    void printTable() const;
 };
 
-#endif
+#endif 
